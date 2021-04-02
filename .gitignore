@@ -1,5 +1,6 @@
 node_modules/
 pullups010-bot-getUpdates.js
+dist/
 
 *.png
 *.jpg

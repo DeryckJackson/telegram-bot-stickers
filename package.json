@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode=development",
-    "start": "npm run build & webpack-dev-server --open --mode development",
+    "start": "npm run build; webpack-dev-server --open --mode development",
     "lint": "eslint src/*.js",
     "test": "jest --coverage"
   },
@@ -34,10 +34,9 @@
     "webpack-dev-server": "^3.8.0"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "jquery": "^3.6.0",
-    "popper.js": "^1.16.1",
-    "request": "^2.88.2",
-    "sharp": "^0.28.0"
+    "popper.js": "^1.16.1"
   }
 }
