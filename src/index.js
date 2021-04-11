@@ -11,18 +11,18 @@ $(document).ready(() => {
     previewImage(event);
   });
   $('#submit').click(() => {
-    postFileData();
+    postPhotoData();
   });
 });
 
-async function postFileData() {
+async function postPhotoData() {
   const photo = document.getElementById('image').files[0];
   const formData = new FormData();
 
   formData.append('photo', photo);
+
   try {
-    const response = await axios.post('/', formData);
-    console.log(response);
+    axios.post('/', formData);
   } catch (err) {
     console.log(err);
   }
