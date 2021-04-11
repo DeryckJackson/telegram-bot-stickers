@@ -11,9 +11,22 @@ $(document).ready(() => {
     previewImage(event);
   });
   $('#submit').click(() => {
-    testGet();
+    postPhotoData();
   });
 });
+
+async function postPhotoData() {
+  const photo = document.getElementById('image').files[0];
+  const formData = new FormData();
+
+  formData.append('photo', photo);
+
+  try {
+    axios.post('/', formData);
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 async function testGet() {
   try {
