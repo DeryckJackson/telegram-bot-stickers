@@ -8,13 +8,26 @@
 <body>
   <div class="container">
     <h1 class="jumbotron">Telegram Sticker Adder</h1>
+    <div class="form-group">
+      <label for="stickerName">Input Sticker Pack Name:</label>
+      <input class="form-control mb-2" type="text" name="stickerName" id="stickerName" />
+      <button class="btn btn-primary" id="getStickerButton">Get Sticker</button>
+      <button class="btn btn-primary" id="postStickerButton">Post Sticker</button>
+    </div>
+    <hr />
+    <div class="form-group mb-3">
+      <label for="image">Please select an image file:</label>
+      <input class="form-control-file" type="file" name="image" id="image" accept="image/png, image/jpeg">
+    </div>
     <div>
-      <input type="file" name="image" id="image">
       <img id="output-image">
     </div>
     <hr />
     <div>
-      <button class="btn btn-primary" id="submit">Submit</button>
+      <button class="btn btn-primary mb-3" id="submit">Submit</button>
+    </div>
+    <div>
+      <button class="btn btn-primary" id="test">Get Updates</button>
     </div>
   </div>
 </body>
