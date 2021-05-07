@@ -29,6 +29,10 @@ $(document).ready(() => {
     getStickerPack($('#stickerName').val())
   })
 
+  $('#postStickerButton').click(() => {
+    postSticker($('#stickerName').val(), $('#emoji').val())
+  })
+
   $(trigger).click(() => {
     picker.togglePicker(trigger)
   })
@@ -45,6 +49,19 @@ async function getStickerPack(name) {
   try {
     const response = await axios.get(`/stickers/${name}`)
     console.log(response.data)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+async function postSticker(packName, emoji) {
+  const photo = document.getElementById('image').files[0];
+  const formData = new FormData()
+
+  formData.append('photo', photo)
+
+  try {
+    axios.post(`/stickers/${packName}/${emoji}`, formData)
   } catch (err) {
     console.log(err)
   }
