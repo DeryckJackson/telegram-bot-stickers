@@ -18,19 +18,11 @@ $(document).ready(() => {
   })
 
   $('#submit').click(() => {
-    postPhotoData()
+    postSticker($('#stickerName').val(), $('#emoji').val())
   })
 
   $('#test').click(() => {
     testGet()
-  })
-
-  $('#getStickerButton').click(() => {
-    getStickerPack($('#stickerName').val())
-  })
-
-  $('#postStickerButton').click(() => {
-    postSticker($('#stickerName').val(), $('#emoji').val())
   })
 
   $(trigger).click(() => {
@@ -54,24 +46,13 @@ async function getStickerPack(name) {
   }
 }
 
-async function postSticker(packName, emoji) {
+async function postSticker(packName, emojis) {
   const photo = document.getElementById('image').files[0];
   const formData = new FormData()
 
   formData.append('photo', photo)
-
-  try {
-    axios.post(`/stickers/${packName}/${emoji}`, formData)
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-async function postPhotoData() {
-  const photo = document.getElementById('image').files[0];
-  const formData = new FormData()
-
-  formData.append('photo', photo)
+  formData.append('name', packName)
+  formData.append('emojis', emojis)
 
   try {
     axios.post('/', formData)
