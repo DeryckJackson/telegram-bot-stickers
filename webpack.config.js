@@ -16,9 +16,13 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'project',
       template: './src/index.html',
+      filename: 'index.html',
       inject: 'body'
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/html/new-pack.html',
+      filename: 'new-pack.html'
     }),
     new Dotenv(),
   ],
