@@ -8,28 +8,69 @@ import { EmojiButton } from '@joeattardi/emoji-button'
 axios.defaults.baseURL = 'http://localhost:3000';
 
 $(document).ready(() => {
+  $('.spinner-border').hide()
+  const outputImage = $('#output-image')
+  outputImage.hide()
+
   const picker = new EmojiButton({
     position: 'bottom-start'
   })
   const trigger = document.querySelector('#trigger')
 
-  $('#image').change((event) => {
-    previewImage(event)
+  $('#image').change((e) => {
+    previewImage(e)
+    outputImage.show()
   })
 
-  $('#addStickerButton').click(() => {
-    postSticker($('#stickerName').val(), $('#emoji').val())
+  $('#addStickerForm').on('submit', async (e) => {
+    e.preventDefault()
+    const button = $('#addStickerButton')
+    const spinner = $('.spinner-border')
+
+    button.addClass('disabled')
+    spinner.show()
+
+    const data = await postSticker($('#stickerName').val(), $('#emoji').val())
+
+    if (data.result === true) {
+      document.getElementById('image').value = null
+      outputImage.hide()
+      button.removeClass('disabled')
+      spinner.hide()
+    } else {
+      alert('Something went wrong, Idda know what. *shrug*')
+      button.removeClass('disabled')
+      spinner.hide()
+    }
   })
 
-  $('#createPackButton').click(() => {
-    createPack($('#stickerName').val(), $('#stickerTitle').val(), $('#emoji').val())
+  $('#createPackForm').on('submit', async (e) => {
+    e.preventDefault()
+    const button = $('#createPackButton')
+    const spinner = $('.spinner-border')
+
+    button.addClass('disabled')
+    spinner.show()
+
+    const data = await createPack($('#stickerName').val(), $('#stickerTitle').val(), $('#emoji').val())
+
+    if (data.result === true) {
+      document.getElementById('image').value = null
+      outputImage.hide()
+      button.removeClass('disabled')
+      spinner.hide()
+    } else {
+      alert('Something went wrong, Idda know what. *shrug*')
+      button.removeClass('disabled')
+      spinner.hide()
+    }
   })
 
-  $('#test').click(() => {
+  $('#test').on('click', () => {
     testGet()
   })
 
-  $(trigger).click(() => {
+  $(trigger).on('click', () => {
     picker.togglePicker(trigger)
   })
 
@@ -38,7 +79,6 @@ $(document).ready(() => {
       return val + selection.emoji
     })
   })
-
 });
 
 async function getStickerPack(name) {
@@ -61,7 +101,9 @@ async function createPack(name, title, emojis) {
 
   try {
     const response = await axios.post('/pack', formData)
-    console.log(response.data)
+    return new Promise(resolve => {
+      resolve(response.data)
+    })
   } catch (err) {
     console.log(err)
   }
@@ -77,7 +119,9 @@ async function postSticker(name, emojis) {
 
   try {
     const response = await axios.post('/stickers', formData)
-    console.log(response.data)
+    return new Promise(resolve => {
+      resolve(response.data)
+    })
   } catch (err) {
     console.log(err)
   }

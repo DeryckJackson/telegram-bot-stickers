@@ -8,32 +8,34 @@
 <body>
   <div class="container">
     <h1 class="jumbotron">Telegram Sticker Adder</h1>
-    <div class="form-group">
-      <label for="stickerName">Input Sticker Pack Name:</label>
-      <input class="form-control mb-2" type="text" name="stickerName" id="stickerName" />
-    </div>
-    <div>
-      <label for="emoji">Input Emoji:</label>
-      <input class="form-control mb-2" type="text" name="emoji" id="emoji" />
-      <button id="trigger">
-        <span>😎</span>
-      </button>
-    </div>
-    <hr />
-    <div class="form-group mb-3">
-      <label for="image">Please select an image file:</label>
-      <input class="form-control-file" type="file" name="image" id="image" accept="image/png, image/jpeg">
-    </div>
-    <div>
-      <img id="output-image">
-    </div>
-    <hr />
-    <div>
-      <button class="btn btn-primary mb-3" id="addStickerButton">Submit</button>
-    </div>
-    <div>
-      <button class="btn btn-primary" id="test">Get Updates</button>
-    </div>
+    <form id="addStickerForm">
+      <div class="form-group">
+        <label for="stickerName">Input Sticker Pack Name:</label>
+        <input class="form-control mb-2" type="text" name="stickerName" id="stickerName" required />
+      </div>
+      <div>
+        <label for="emoji">Input Emoji:</label>
+        <input class="form-control mb-2" type="text" name="emoji" id="emoji" required />
+        <button id="trigger">
+          <span>😎</span>
+        </button>
+      </div>
+      <hr />
+      <div class="form-group mb-3">
+        <label for="image">Please select an image file:</label>
+        <input class="form-control-file" type="file" name="image" id="image" accept="image/png, image/jpeg" required>
+      </div>
+      <div>
+        <img id="output-image">
+      </div>
+      <hr />
+      <div>
+        <input type="submit" class="btn btn-primary mb-3" id="addStickerButton" />
+        <div class="spinner-border text-primary ml-2" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </form>
     <div class="mt-4">
       <a href="new-pack.html">New Pack</a>
     </div>
