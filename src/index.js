@@ -4,8 +4,14 @@ import './styles.css'
 import $ from 'jquery'
 import axios from 'axios'
 import { EmojiButton } from '@joeattardi/emoji-button'
+import "regenerator-runtime/runtime"
 
-axios.defaults.baseURL = 'http://localhost:3000';
+// Needed for Hot Module Replacement
+if (typeof (module.hot) !== 'undefined') {
+  module.hot.accept() // eslint-disable-line no-undef  
+}
+
+axios.defaults.baseURL = process.env.BASE_URL || 'http://localhost:3000'
 
 $(document).ready(() => {
   $('.spinner-border').hide()

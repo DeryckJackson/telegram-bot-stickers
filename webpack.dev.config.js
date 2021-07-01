@@ -1,15 +1,18 @@
 const path = require("path")
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require("html-webpack-plugin")
+const Dotenv = require('dotenv-webpack')
+
 module.exports = {
   entry: {
-    main: './src/index.js'
+    main: ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true', './src/index.js']
   },
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/',
     filename: '[name].js'
   },
+  mode: 'development',
   target: 'web',
   devtool: 'source-map',
   module: {
@@ -51,5 +54,8 @@ module.exports = {
       filename: 'new-pack.html',
       excludeChunks: ['server']
     }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new Dotenv()
   ],
 };
