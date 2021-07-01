@@ -2,7 +2,7 @@ const path = require("path")
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-const Dotenv = require('dotenv-webpack')
+const webpack = require('webpack')
 
 module.exports = {
   entry: {
@@ -68,6 +68,10 @@ module.exports = {
       filename: "[name].css",
       chunkFilename: "[id].css"
     }),
-    new Dotenv()
+    new webpack.DefinePlugin({
+      'process.env': {
+        'BASE_URL': JSON.stringify(process.env.BASE_URL)
+      }
+    })
   ]
 }
