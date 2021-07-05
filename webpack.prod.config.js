@@ -3,6 +3,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const webpack = require('webpack')
+const functions = require('firebase-functions');
 
 module.exports = {
   entry: {
@@ -70,7 +71,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'BASE_URL': JSON.stringify(process.env.BASE_URL)
+        'BASE_URL': functions.config().stickers.baseurl
       }
     })
   ]
