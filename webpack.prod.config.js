@@ -4,6 +4,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const webpack = require('webpack')
 const functions = require('firebase-functions');
+const admin = require('firebase-admin')
+admin.initializeApp()
 
 module.exports = {
   entry: {
