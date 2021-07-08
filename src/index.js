@@ -5,13 +5,14 @@ import $ from 'jquery'
 import axios from 'axios'
 import { EmojiButton } from '@joeattardi/emoji-button'
 import "regenerator-runtime/runtime"
+const functions = require('firebase-functions')
 
 // Needed for Hot Module Replacement
 if (typeof (module.hot) !== 'undefined') {
   module.hot.accept() // eslint-disable-line no-undef  
 }
 
-axios.defaults.baseURL = process.env.BASE_URL || 'http://localhost:3000'
+axios.defaults.baseURL = functions.config().stickers.baseurl || 'http://localhost:3000'
 
 $(document).ready(() => {
   $('.spinner-border').hide()
