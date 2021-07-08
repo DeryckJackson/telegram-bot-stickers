@@ -2,6 +2,7 @@ const path = require("path")
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 const Dotenv = require('dotenv-webpack')
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -56,6 +57,7 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new Dotenv()
+    new Dotenv(),
+    new NodePolyfillPlugin()
   ],
 };
