@@ -7,14 +7,15 @@
   "license": "MIT",
   "scripts": {
     "buildDev": "rm -rf dist && webpack --mode development --config webpack.server.config.js && webpack --mode development --config webpack.dev.config.js",
-    "buildProd": "rm -rf dist && webpack --mode production --config webpack.server.config.js && webpack --mode production --config webpack.prod.config.js",
-    "heroku-postbuild": "webpack --mode production --config webpack.server.config.js && webpack --mode production --config webpack.prod.config.js",
+    "buildProd": "webpack --mode production --config webpack.server.config.js && webpack --mode production --config webpack.prod.config.js",
+    "heroku-postbuild": "npm run buildProd",
+    "prestart": "npm run buildProd",
     "start": "node ./dist/server.js",
     "lint": "eslint src/*.js",
     "test": "jest --coverage"
   },
   "engines": {
-    "node": "14.x"
+    "node": "14.x.x"
   },
   "eslintConfig": {
     "plugins": [
