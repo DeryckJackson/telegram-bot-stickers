@@ -6,11 +6,11 @@
   "author": "Deryck Jackson <dgjackson01@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "buildDev": "rm -rf dist && webpack --mode development --config webpack.server.config.js && webpack --mode development --config webpack.dev.config.js",
-    "buildProd": "webpack --mode production --config webpack.server.config.js && webpack --mode production --config webpack.prod.config.js",
-    "heroku-postbuild": "npm run buildProd",
-    "prestart": "npm run buildProd",
+    "builddev": "rm -rf dist && webpack --mode development --config webpack.server.config.js && webpack --mode development --config webpack.dev.config.js",
+    "buildprod": "rm -rf dist && webpack --mode production --config webpack.server.config.js && webpack --mode production --config webpack.prod.config.js",
+    "gcp-build": "npm run buildprod",
     "start": "node ./dist/server.js",
+    "deploy": "gcloud app deploy",
     "lint": "eslint src/*.js",
     "test": "jest --coverage"
   },

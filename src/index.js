@@ -36,17 +36,17 @@ $(document).ready(() => {
     button.addClass('disabled')
     spinner.show()
 
-    const data = await postSticker($('#stickerName').val(), $('#emoji').val())
-
-    if (data.result === true) {
+    try {
+      await postSticker($('#stickerName').val(), $('#emoji').val())
       document.getElementById('image').value = null
       outputImage.hide()
       button.removeClass('disabled')
       spinner.hide()
-    } else {
-      alert('Something went wrong, Idda know what. *shrug*')
+    } catch (err) {
       button.removeClass('disabled')
       spinner.hide()
+      console.error(err)
+      alert('Something went wrong, Idda know what. *shrug*')
     }
   })
 
@@ -58,17 +58,17 @@ $(document).ready(() => {
     button.addClass('disabled')
     spinner.show()
 
-    const data = await createPack($('#stickerName').val(), $('#stickerTitle').val(), $('#emoji').val())
-
-    if (data.result === true) {
+    try {
+      await createPack($('#stickerName').val(), $('#stickerTitle').val(), $('#emoji').val())
       document.getElementById('image').value = null
       outputImage.hide()
       button.removeClass('disabled')
       spinner.hide()
-    } else {
-      alert('Something went wrong, Idda know what. *shrug*')
+    } catch (err) {
       button.removeClass('disabled')
       spinner.hide()
+      console.error(err)
+      alert('Something went wrong, Idda know what. *shrug*')
     }
   })
 
@@ -90,9 +90,9 @@ $(document).ready(() => {
 async function getStickerPack(name) {
   try {
     const response = await axios.get(`/stickers/${name}`)
-    console.log(response.data)
+    console.log(response)
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -106,12 +106,9 @@ async function createPack(name, title, emojis) {
   formData.append('emojis', emojis)
 
   try {
-    const response = await axios.post('/pack', formData)
-    return new Promise(resolve => {
-      resolve(response.data)
-    })
+    await axios.post('/pack', formData)
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -124,21 +121,18 @@ async function postSticker(name, emojis) {
   formData.append('emojis', emojis)
 
   try {
-    const response = await axios.post('/stickers', formData)
-    return new Promise(resolve => {
-      resolve(response.data)
-    })
+    await axios.post('/stickers', formData)
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
 async function testGet() {
   try {
     const response = await axios.get('/')
-    console.log(response.data)
+    console.log(response)
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
