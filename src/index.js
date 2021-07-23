@@ -90,7 +90,7 @@ $(document).ready(() => {
 async function getStickerPack(name) {
   try {
     const response = await axios.get(`/stickers/${name}`)
-    console.log(response)
+    console.log(response.data)
   } catch (err) {
     console.error(err)
   }
@@ -130,7 +130,7 @@ async function postSticker(name, emojis) {
 async function testGet() {
   try {
     const response = await axios.get('/')
-    console.log(response)
+    console.log(response.data)
   } catch (err) {
     console.error(err)
   }
