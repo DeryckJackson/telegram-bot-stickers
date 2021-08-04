@@ -11,7 +11,7 @@ if (typeof (module.hot) !== 'undefined') {
   module.hot.accept() // eslint-disable-line no-undef  
 }
 
-axios.defaults.baseURL = 'https://stickers-api.deryck.dev'
+axios.defaults.baseURL = process.env.BASE_URL || 'http://localhost:3000'
 
 $(document).ready(() => {
   $('.spinner-border').hide()
