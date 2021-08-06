@@ -2,16 +2,14 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles.css'
 import $ from 'jquery'
-import axios from 'axios'
+import { postSticker, createPack } from './js/sticker-funcs'
 import { EmojiButton } from '@joeattardi/emoji-button'
 import "regenerator-runtime/runtime"
 
 // Needed for Hot Module Replacement
 if (typeof (module.hot) !== 'undefined') {
-  module.hot.accept() // eslint-disable-line no-undef  
+  module.hot.accept() // eslint-disable-line no-undef
 }
-
-axios.defaults.baseURL = process.env.BASE_URL || 'http://localhost:3000'
 
 $(document).ready(() => {
   $('.spinner-border').hide()
@@ -30,21 +28,15 @@ $(document).ready(() => {
 
   $('#addStickerForm').on('submit', async (e) => {
     e.preventDefault()
-    const button = $('#addStickerButton')
-    const spinner = $('.spinner-border')
-
-    button.addClass('disabled')
-    spinner.show()
+    showSpinner()
 
     try {
       await postSticker($('#stickerName').val(), $('#emoji').val())
       document.getElementById('image').value = null
       outputImage.hide()
-      button.removeClass('disabled')
-      spinner.hide()
+      hideSpinner()
     } catch (err) {
-      button.removeClass('disabled')
-      spinner.hide()
+      hideSpinner()
       console.error(err)
       alert('Something went wrong, Idda know what. *shrug*')
     }
@@ -52,28 +44,18 @@ $(document).ready(() => {
 
   $('#createPackForm').on('submit', async (e) => {
     e.preventDefault()
-    const button = $('#createPackButton')
-    const spinner = $('.spinner-border')
-
-    button.addClass('disabled')
-    spinner.show()
+    showSpinner()
 
     try {
       await createPack($('#stickerName').val(), $('#stickerTitle').val(), $('#emoji').val())
       document.getElementById('image').value = null
       outputImage.hide()
-      button.removeClass('disabled')
-      spinner.hide()
+      hideSpinner()
     } catch (err) {
-      button.removeClass('disabled')
-      spinner.hide()
+      hideSpinner()
       console.error(err)
       alert('Something went wrong, Idda know what. *shrug*')
     }
-  })
-
-  $('#test').on('click', () => {
-    testGet()
   })
 
   $(trigger).on('click', () => {
@@ -87,53 +69,20 @@ $(document).ready(() => {
   })
 });
 
-async function getStickerPack(name) {
-  try {
-    const response = await axios.get(`/stickers/${name}`)
-    console.log(response.data)
-  } catch (err) {
-    console.error(err)
-  }
+function showSpinner() {
+  const button = $('#createPackButton')
+  const spinner = $('.spinner-border')
+
+  button.addClass('disabled')
+  spinner.show()
 }
 
-async function createPack(name, title, emojis) {
-  const photo = document.getElementById('image').files[0];
-  const formData = new FormData()
+function hideSpinner() {
+  const button = $('#createPackButton')
+  const spinner = $('.spinner-border')
 
-  formData.append('photo', photo)
-  formData.append('title', title)
-  formData.append('name', name)
-  formData.append('emojis', emojis)
-
-  try {
-    await axios.post('/pack', formData)
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-async function postSticker(name, emojis) {
-  const photo = document.getElementById('image').files[0];
-  const formData = new FormData()
-
-  formData.append('photo', photo)
-  formData.append('name', name)
-  formData.append('emojis', emojis)
-
-  try {
-    await axios.post('/stickers', formData)
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-async function testGet() {
-  try {
-    const response = await axios.get('/')
-    console.log(response.data)
-  } catch (err) {
-    console.error(err)
-  }
+  button.removeClass('disabled')
+  spinner.hide()
 }
 
 function previewImage(event) {
