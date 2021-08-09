@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles.css'
 import $ from 'jquery'
 import { postSticker, createPack } from './js/sticker-funcs'
+import { showSpinner, hideSpinner, previewImage } from './js/helper-funcs'
 import { EmojiButton } from '@joeattardi/emoji-button'
 import "regenerator-runtime/runtime"
 
@@ -58,38 +59,15 @@ $(document).ready(() => {
     }
   })
 
+  // Shows the emoji picker
   $(trigger).on('click', () => {
     picker.togglePicker(trigger)
   })
 
+  // Adds picked emoji to the emoji text field
   picker.on('emoji', selection => {
     $('#emoji').val((i, val) => {
       return val + selection.emoji
     })
   })
 });
-
-function showSpinner() {
-  const button = $('#createPackButton')
-  const spinner = $('.spinner-border')
-
-  button.addClass('disabled')
-  spinner.show()
-}
-
-function hideSpinner() {
-  const button = $('#createPackButton')
-  const spinner = $('.spinner-border')
-
-  button.removeClass('disabled')
-  spinner.hide()
-}
-
-function previewImage(event) {
-  const reader = new FileReader()
-  reader.onload = () => {
-    const output = document.getElementById('output-image')
-    output.src = reader.result
-  };
-  reader.readAsDataURL(event.target.files[0])
-}
