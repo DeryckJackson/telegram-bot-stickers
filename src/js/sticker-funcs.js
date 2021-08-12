@@ -45,7 +45,7 @@ async function postSticker(name, emojis) {
 async function testGet() {
   try {
     const response = await axios.get('/')
-    console.log(response.data)
+    return response.data
   } catch (err) {
     console.error(err)
   }
