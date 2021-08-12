@@ -5,7 +5,7 @@ axios.defaults.baseURL = process.env.BASE_URL || 'http://localhost:3000'
 async function getStickerPack(name) {
   try {
     const response = await axios.get(`/stickers/${name}`)
-    console.log(response.data)
+    return response.data
   } catch (err) {
     console.error(err)
   }
@@ -21,7 +21,7 @@ async function createPack(name, title, emojis) {
   formData.append('emojis', emojis)
 
   try {
-    await axios.post('/pack', formData)
+    return await axios.post('/pack', formData)
   } catch (err) {
     console.error(err)
   }
@@ -36,7 +36,7 @@ async function postSticker(name, emojis) {
   formData.append('emojis', emojis)
 
   try {
-    await axios.post('/stickers', formData)
+    return await axios.post('/stickers', formData)
   } catch (err) {
     console.error(err)
   }
