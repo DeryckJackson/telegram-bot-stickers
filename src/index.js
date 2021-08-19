@@ -17,27 +17,22 @@ $(document).ready(() => {
   const outputImage = $('#output-image')
   outputImage.hide()
 
-  const picker = new EmojiButton({
-    position: 'bottom-start'
-  })
-  const trigger = document.querySelector('#trigger')
-
-  $('#image').change((e) => {
+  $('#image').on('change', (e) => {
     previewImage(e)
     outputImage.show()
   })
 
   $('#addStickerForm').on('submit', async (e) => {
     e.preventDefault()
-    showSpinner()
+    showSpinner('#addStickerButton')
 
     try {
       await postSticker($('#stickerName').val(), $('#emoji').val())
       document.getElementById('image').value = null
       outputImage.hide()
-      hideSpinner()
+      hideSpinner('#addStickerButton')
     } catch (err) {
-      hideSpinner()
+      hideSpinner('#addStickerButton')
       console.error(err)
       alert('Something went wrong, Idda know what. *shrug*')
     }
@@ -45,19 +40,24 @@ $(document).ready(() => {
 
   $('#createPackForm').on('submit', async (e) => {
     e.preventDefault()
-    showSpinner()
+    showSpinner('#createPackButton')
 
     try {
       await createPack($('#stickerName').val(), $('#stickerTitle').val(), $('#emoji').val())
       document.getElementById('image').value = null
       outputImage.hide()
-      hideSpinner()
+      hideSpinner('#createPackButton')
     } catch (err) {
-      hideSpinner()
+      hideSpinner('#createPackButton')
       console.error(err)
       alert('Something went wrong, Idda know what. *shrug*')
     }
   })
+
+  const picker = new EmojiButton({
+    position: 'bottom-start'
+  })
+  const trigger = document.querySelector('#trigger')
 
   // Shows the emoji picker
   $(trigger).on('click', () => {

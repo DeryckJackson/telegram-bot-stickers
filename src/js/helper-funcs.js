@@ -1,13 +1,15 @@
-function showSpinner() {
-  const button = $('#createPackButton')
+import $ from 'jquery'
+
+function showSpinner(buttonId) {
+  const button = $(buttonId)
   const spinner = $('.spinner-border')
 
   button.addClass('disabled')
   spinner.show()
 }
 
-function hideSpinner() {
-  const button = $('#createPackButton')
+function hideSpinner(buttonId) {
+  const button = $(buttonId)
   const spinner = $('.spinner-border')
 
   button.removeClass('disabled')
