@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import { showSpinner, hideSpinner } from '../js/helper-funcs'
+import { showSpinner, hideSpinner, previewImage } from '../js/helper-funcs'
 
 describe('helper-funcs', () => {
   test('should call showSpinner and show spinner and disable button', () => {
@@ -30,5 +30,20 @@ describe('helper-funcs', () => {
 
     expect(spinner.css('display')).toBe('none')
     expect(button.hasClass('disabled')).toBe(false)
+  })
+
+  test('should call previewImage and attach file to input image element', () => {
+    document.body.innerHTML = `
+    <input class="form-control-file" type="file" name="image" id="image" required>
+    <img id="output-image">`
+
+    const uploadedImage = new Blob(['someImage'])
+    const event = { target: { files: [uploadedImage] } }
+    const spy = jest.spyOn(FileReader.prototype, 'readAsDataURL')
+    const imageElement = document.getElementById('output-image')
+
+    previewImage(event)
+
+    expect(spy).toHaveBeenCalledWith(uploadedImage)
   })
 })
